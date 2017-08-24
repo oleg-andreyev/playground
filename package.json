@@ -1,0 +1,16 @@
+{
+  "name": "playground",
+  "dependencies": {
+    "browserify": "^14.4.0",
+    "locutus": "^2.0.9",
+    "phantomjs": "^1.9.20"
+  },
+  "scripts": {
+    "apply-patch": "curl -s https://raw.githubusercontent.com/oleg-andreyev/locutus/d050c03911ebbbee8b91e6ccbd450e94bbd1d7b3/src/php/array/array_multisort.js -o ./node_modules/locutus/php/array/array_multisort.js",
+    "browserify": "mkdir -p ./build && ./node_modules/.bin/browserify src/array_multisort-unable-to-delete-property.js -o build/build.js",
+    "test": "./node_modules/.bin/phantomjs build/build.js && exit $?",
+
+    "run-origin": "rm -rf ./node_modules/locutus && npm i && npm run browserify && npm run test",
+    "run-patch": "npm run apply-patch && npm run browserify && npm run test"
+  }
+}
